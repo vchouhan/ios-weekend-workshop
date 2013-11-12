@@ -90,7 +90,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ImageViewController * vc = [[ImageViewController alloc] init];
+    ImageViewController *vc = [[ImageViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -98,19 +98,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * cellIdentifier = @"Cell";
+    static NSString *cellIdentifier = @"Cell";
     
-    PopularMediaCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    PopularMediaCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[PopularMediaCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[PopularMediaCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
     
-    NSDictionary * mediaObject = [self.mediaArray objectAtIndex:indexPath.row];
-//    NSDictionary * caption = [mediaObject valueForKey:@"caption"];
-//    NSString * title = [caption valueForKey:@"text"];
-//    cell.textLabel.text = title;
-    
-    cell.textLabel.text = [mediaObject valueForKey:@"id"];
+    NSDictionary *mediaObject = [self.mediaArray objectAtIndex:indexPath.row];
+    [cell setMediaObject:mediaObject];
     
     return cell;
 }

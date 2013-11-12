@@ -23,6 +23,7 @@
 		914517071831C9F300E13634 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 914517031831C9F300E13634 /* ImageViewController.m */; };
 		914517081831C9F300E13634 /* PopularMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 914517051831C9F300E13634 /* PopularMediaViewController.m */; };
 		9145170B1831CB3900E13634 /* MediaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9145170A1831CB3900E13634 /* MediaManager.m */; };
+		9145170F18326E3C00E13634 /* NSError+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9145170E18326E3C00E13634 /* NSError+Extensions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,8 @@
 		914517051831C9F300E13634 /* PopularMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularMediaViewController.m; sourceTree = "<group>"; };
 		914517091831CB3900E13634 /* MediaManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaManager.h; sourceTree = "<group>"; };
 		9145170A1831CB3900E13634 /* MediaManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaManager.m; sourceTree = "<group>"; };
+		9145170D18326E3C00E13634 /* NSError+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+Extensions.h"; sourceTree = "<group>"; };
+		9145170E18326E3C00E13634 /* NSError+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+Extensions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +124,7 @@
 			children = (
 				914516D41831BC9F00E13634 /* AppDelegate.h */,
 				914516D51831BC9F00E13634 /* AppDelegate.m */,
+				9145170C18326E1C00E13634 /* Categories */,
 				914517011831C9F300E13634 /* ViewControllers */,
 				914516FD1831C9F300E13634 /* Cells */,
 				914517001831C9F300E13634 /* Server */,
@@ -186,6 +190,15 @@
 				914517031831C9F300E13634 /* ImageViewController.m */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		9145170C18326E1C00E13634 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				9145170D18326E3C00E13634 /* NSError+Extensions.h */,
+				9145170E18326E3C00E13634 /* NSError+Extensions.m */,
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,6 +298,7 @@
 			files = (
 				9145170B1831CB3900E13634 /* MediaManager.m in Sources */,
 				914516D61831BC9F00E13634 /* AppDelegate.m in Sources */,
+				9145170F18326E3C00E13634 /* NSError+Extensions.m in Sources */,
 				914516D21831BC9F00E13634 /* main.m in Sources */,
 				914517081831C9F300E13634 /* PopularMediaViewController.m in Sources */,
 				914517071831C9F300E13634 /* ImageViewController.m in Sources */,

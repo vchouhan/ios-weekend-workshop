@@ -7,20 +7,12 @@
 //
 
 #import "MediaManager.h"
+#import "NSError+Extensions.h"
 
 #define POPULAR_MEDIA_ENDPOINT @"https://api.instagram.com/v1/media/popular?client_id="
-#define INSTAGRAM_CLIENT_ID @"a19b12119e254fe78d2b75cda6cec5b9"
+#define INSTAGRAM_CLIENT_ID @"5609d2fb2bf74d749716bd00a9090e5e"
 
 @implementation MediaManager
-
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
-}
 
 - (void)dealloc
 {
@@ -54,7 +46,7 @@
                                                             NSArray *media = [weakSelf mediaFromResponse:dictionary];
                                                             [weakSelf.delegate mediaManager:weakSelf didSucceedWithMedia:media];
                                                         } else {
-                                                            error = [weakSelf errorFromResponse:dictionary];
+                                                            error = [NSError errorFromResponse:dictionary];
                                                             [weakSelf.delegate mediaManager:weakSelf didFailWithError:error];
                                                         }
                                                     }
@@ -64,28 +56,14 @@
     [task resume];
 }
 
-- (NSError *)errorFromResponse:(NSDictionary *)response
-{
-    // We would normally check the integrity of the "response" dictionary,
-    // However, in the interest of time we will assume it contains the keys "meta", "error_type", "code" and "error_message"
-    
-    NSString *type = [[response valueForKey:@"meta"] valueForKey:@"error_type"];
-    int code = [[[response valueForKey:@"meta"] valueForKey:@"code"] intValue];
-    NSString *message = [[response valueForKey:@"meta"] valueForKey:@"error_message"];
-    
-    NSMutableDictionary *details = [NSMutableDictionary dictionary];
-    [details setValue:message forKey:NSLocalizedDescriptionKey];
-    NSError *error = [NSError errorWithDomain:type code:code userInfo:details];
-    
-    return error;
-}
-
 - (NSArray *)mediaFromResponse:(NSDictionary *)response
 {
-    // We would normally check the integrity of the "response" dictionary,
-    // However, in the interest of time we will assume it contains the key "data"
-
     NSArray *data = [response valueForKey:@"data"];
+    
+    if (!data || (NSNull *)data == [NSNull null]) {
+        data = @[];
+    }
+
     return data;
 }
 

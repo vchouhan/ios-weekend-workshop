@@ -10,4 +10,6 @@
 
 @interface PopularMediaCell : UITableViewCell
 
+@property (nonatomic, strong) NSDictionary *mediaObject;
+
 @end

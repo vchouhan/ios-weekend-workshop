@@ -19,11 +19,28 @@
     return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+- (void)setMediaObject:(NSDictionary *)mediaObject
 {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    _mediaObject = mediaObject;
+    
+    NSString *objectID = @"No ID";
+    NSString *caption = @"No caption";
+    
+    NSString *tempObjectID = [mediaObject valueForKey:@"id"];
+    if (tempObjectID && (NSNull *)objectID != [NSNull null]) {
+        objectID = tempObjectID;
+    }
+    
+    NSDictionary *tempCaption = [mediaObject valueForKey:@"caption"];
+    if (tempCaption && (NSNull *)tempCaption != [NSNull null]) {
+        NSString * title = [tempCaption valueForKey:@"text"];
+        if (title && (NSNull *)title != [NSNull null]) {
+            caption = title;
+        }
+    }
+        
+    self.textLabel.text = objectID;
+    self.detailTextLabel.text = caption;
 }
 
 @end

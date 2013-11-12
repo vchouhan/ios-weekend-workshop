@@ -20,8 +20,6 @@
 
 @property (nonatomic, weak) id<MediaManagerDelegate> delegate;
 
-- (id)init;
-
 - (void)fetchPopularMedia;
 
 @end
