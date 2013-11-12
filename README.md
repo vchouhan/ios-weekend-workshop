@@ -1,4 +1,4 @@
-ios-weekend-workshop
+ios-workshop
 ====================
 
 Teaching materials for the General Assembly iOS weekend workshop
