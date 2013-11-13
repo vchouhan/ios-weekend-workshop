@@ -24,6 +24,7 @@
 		914517081831C9F300E13634 /* PopularMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 914517051831C9F300E13634 /* PopularMediaViewController.m */; };
 		9145170B1831CB3900E13634 /* MediaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9145170A1831CB3900E13634 /* MediaManager.m */; };
 		9145170F18326E3C00E13634 /* NSError+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9145170E18326E3C00E13634 /* NSError+Extensions.m */; };
+		914517131833B7DF00E13634 /* MediaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 914517121833B7DF00E13634 /* MediaObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,8 @@
 		9145170A1831CB3900E13634 /* MediaManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaManager.m; sourceTree = "<group>"; };
 		9145170D18326E3C00E13634 /* NSError+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+Extensions.h"; sourceTree = "<group>"; };
 		9145170E18326E3C00E13634 /* NSError+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+Extensions.m"; sourceTree = "<group>"; };
+		914517111833B7DF00E13634 /* MediaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaObject.h; sourceTree = "<group>"; };
+		914517121833B7DF00E13634 /* MediaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +127,7 @@
 			children = (
 				914516D41831BC9F00E13634 /* AppDelegate.h */,
 				914516D51831BC9F00E13634 /* AppDelegate.m */,
+				914517101833B7D200E13634 /* Model */,
 				9145170C18326E1C00E13634 /* Categories */,
 				914517011831C9F300E13634 /* ViewControllers */,
 				914516FD1831C9F300E13634 /* Cells */,
@@ -199,6 +203,15 @@
 				9145170E18326E3C00E13634 /* NSError+Extensions.m */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		914517101833B7D200E13634 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				914517111833B7DF00E13634 /* MediaObject.h */,
+				914517121833B7DF00E13634 /* MediaObject.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,6 +316,7 @@
 				914517081831C9F300E13634 /* PopularMediaViewController.m in Sources */,
 				914517071831C9F300E13634 /* ImageViewController.m in Sources */,
 				914517061831C9F300E13634 /* PopularMediaCell.m in Sources */,
+				914517131833B7DF00E13634 /* MediaObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

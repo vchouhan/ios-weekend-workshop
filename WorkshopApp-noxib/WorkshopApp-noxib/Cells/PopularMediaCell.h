@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class MediaObject;
+
 @interface PopularMediaCell : UITableViewCell
 
-@property (nonatomic, strong) NSDictionary *mediaObject;
+@property (nonatomic, strong) MediaObject *mediaObject;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "MediaManager.h"
 #import "NSError+Extensions.h"
+#import "MediaObject.h"
 
 #define POPULAR_MEDIA_ENDPOINT @"https://api.instagram.com/v1/media/popular?client_id="
 #define INSTAGRAM_CLIENT_ID @"5609d2fb2bf74d749716bd00a9090e5e"
@@ -28,43 +29,46 @@
     
     __weak MediaManager * weakSelf = self;
     NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
-                                            completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                 
-                                                if (error) {
-                                                    [weakSelf.delegate mediaManager:weakSelf didFailWithError:error];
-                                                } else {
-                                                    
-                                                    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data
-                                                                                                               options:NSJSONReadingAllowFragments
-                                                                                                                 error:&error];
-                                                    if (error){
-                                                        [weakSelf.delegate mediaManager:weakSelf didFailWithError:error];
-                                                    } else {
-                                                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-                                                        if (httpResponse.statusCode == 200) {
-                                                            NSArray *media = [weakSelf mediaFromResponse:dictionary];
-                                                            [weakSelf.delegate mediaManager:weakSelf didSucceedWithMedia:media];
-                                                        } else {
-                                                            error = [NSError errorFromResponse:dictionary];
-                                                            [weakSelf.delegate mediaManager:weakSelf didFailWithError:error];
-                                                        }
-                                                    }
-                                                }
-                                                
-                                            }];
+        if (error) {
+            [weakSelf.delegate mediaManager:weakSelf didFailWithError:error];
+        } else {
+            
+            NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data
+                                                                       options:NSJSONReadingAllowFragments
+                                                                         error:&error];
+            if (error){
+                [weakSelf.delegate mediaManager:weakSelf didFailWithError:error];
+            } else {
+                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                if (httpResponse.statusCode == 200) {
+                    NSArray *media = [weakSelf mediaFromResponse:dictionary];
+                    [weakSelf.delegate mediaManager:weakSelf didSucceedWithMedia:media];
+                } else {
+                    error = [NSError errorFromResponse:dictionary];
+                    [weakSelf.delegate mediaManager:weakSelf didFailWithError:error];
+                }
+            }
+        }
+        
+    }];
     [task resume];
 }
 
 - (NSArray *)mediaFromResponse:(NSDictionary *)response
 {
-    NSArray *data = [response valueForKey:@"data"];
+    NSMutableArray * mediaObjects = [NSMutableArray array];
     
-    if (!data || (NSNull *)data == [NSNull null]) {
-        data = @[];
+    NSArray *data = [response valueForKey:@"data"];
+    if (data && (NSNull *)data != [NSNull null]) {
+        for (NSDictionary *mediaDictionary in data) {
+            MediaObject *mediaObject = [[MediaObject alloc] initWithDictionary:mediaDictionary];
+            [mediaObjects addObject:mediaObject];
+        }
     }
 
-    return data;
+    return mediaObjects;
 }
 
 @end

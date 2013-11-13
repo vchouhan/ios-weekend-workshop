@@ -10,11 +10,12 @@
 #import "PopularMediaCell.h"
 #import "ImageViewController.h"
 #import "MediaManager.h"
+#import "MediaObject.h"
 
 @interface PopularMediaViewController () <UITableViewDataSource, UITableViewDelegate, MediaManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) MediaManager *mediaManager;
-@property (nonatomic, strong) NSArray *mediaArray;
+@property (nonatomic, strong) NSArray *mediaObjects;
 @end
 
 @implementation PopularMediaViewController
@@ -33,7 +34,8 @@
     [super viewDidLoad];
     
 	// Do any additional setup after loading the view.
-    self.mediaArray = [NSArray array];
+    
+    self.mediaObjects = [NSArray array];
 
     self.mediaManager = [[MediaManager alloc] init];
     self.mediaManager.delegate = self;
@@ -69,7 +71,7 @@
 - (void)mediaManager:(MediaManager *)mediaManager didSucceedWithMedia:(NSArray *)media
 {
     dispatch_sync(dispatch_get_main_queue(), ^{
-        self.mediaArray = media;
+        self.mediaObjects = media;
         [self.tableView reloadData];
     });
 }
@@ -90,7 +92,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ImageViewController *vc = [[ImageViewController alloc] init];
+    MediaObject *mediaObject = [self.mediaObjects objectAtIndex:indexPath.row];
+    ImageViewController *vc = [[ImageViewController alloc] initWithMediaObject:mediaObject];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -105,7 +108,7 @@
         cell = [[PopularMediaCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
     
-    NSDictionary *mediaObject = [self.mediaArray objectAtIndex:indexPath.row];
+    MediaObject *mediaObject = [self.mediaObjects objectAtIndex:indexPath.row];
     [cell setMediaObject:mediaObject];
     
     return cell;
@@ -114,7 +117,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return [self.mediaArray count];
+        return [self.mediaObjects count];
     } else {
         return 0;
     }

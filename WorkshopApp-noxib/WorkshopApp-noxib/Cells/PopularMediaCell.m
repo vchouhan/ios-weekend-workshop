@@ -7,6 +7,7 @@
 //
 
 #import "PopularMediaCell.h"
+#import "MediaObject.h"
 
 @implementation PopularMediaCell
 
@@ -19,28 +20,12 @@
     return self;
 }
 
-- (void)setMediaObject:(NSDictionary *)mediaObject
+- (void)setMediaObject:(MediaObject *)mediaObject
 {
     _mediaObject = mediaObject;
     
-    NSString *objectID = @"No ID";
-    NSString *caption = @"No caption";
-    
-    NSString *tempObjectID = [mediaObject valueForKey:@"id"];
-    if (tempObjectID && (NSNull *)objectID != [NSNull null]) {
-        objectID = tempObjectID;
-    }
-    
-    NSDictionary *tempCaption = [mediaObject valueForKey:@"caption"];
-    if (tempCaption && (NSNull *)tempCaption != [NSNull null]) {
-        NSString * title = [tempCaption valueForKey:@"text"];
-        if (title && (NSNull *)title != [NSNull null]) {
-            caption = title;
-        }
-    }
-        
-    self.textLabel.text = objectID;
-    self.detailTextLabel.text = caption;
+    self.textLabel.text = [mediaObject objectID];
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
 @end

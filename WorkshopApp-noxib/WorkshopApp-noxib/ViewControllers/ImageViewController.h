@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class MediaObject;
+
 @interface ImageViewController : UIViewController
+
+- (id)initWithMediaObject:(MediaObject *)mediaObject;
 
 @end
