@@ -52,7 +52,8 @@
     UILabel *captionLabel = [[UILabel alloc] initWithFrame:labelFrame];
     captionLabel.lineBreakMode = NSLineBreakByWordWrapping;
     captionLabel.numberOfLines = 0;
-    captionLabel.text = [self.mediaObject caption];
+    captionLabel.text = self.mediaObject.caption;
+    [captionLabel sizeToFit];
     captionLabel.backgroundColor = [UIColor orangeColor];
     [self.view addSubview:captionLabel];
 }
