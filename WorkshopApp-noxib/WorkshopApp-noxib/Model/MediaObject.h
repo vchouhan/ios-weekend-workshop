@@ -10,10 +10,10 @@
 
 @interface MediaObject : NSObject
 
+@property (nonatomic, strong) NSString *objectID;
+@property (nonatomic, strong) NSString *caption;
+@property (nonatomic, strong) NSURL *imageURL;
+
 - (id)initWithDictionary:(NSDictionary *)dictionary;
-
-- (NSString *)objectID;
-
-- (NSString *)caption;
 
 @end

@@ -8,35 +8,35 @@
 
 #import "MediaObject.h"
 
-@interface MediaObject ()
-@property (nonatomic, strong) NSDictionary *dictionary;
-@end
-
 @implementation MediaObject
 
 - (id)initWithDictionary:(NSDictionary *)dictionary
 {
     self = [super init];
     if (self) {
-        self.dictionary = dictionary;
+        
+        self.objectID = [self parseObjectID:dictionary];
+        self.caption = [self parseCaption:dictionary];
+        self.imageURL = [self parseImageURL:dictionary];
+    
     }
     return self;
 }
 
-- (NSString *)objectID
+- (NSString *)parseObjectID:(NSDictionary *)dictionary
 {
     NSString *objectID = @"No ID";
-    NSString *tempObjectID = [self.dictionary valueForKey:@"id"];
+    NSString *tempObjectID = [dictionary valueForKey:@"id"];
     if (tempObjectID && (NSNull *)objectID != [NSNull null]) {
         objectID = tempObjectID;
     }
     return objectID;
 }
 
-- (NSString *)caption
+- (NSString *)parseCaption:(NSDictionary *)dictionary
 {
     NSString * caption = @"No caption";
-    NSDictionary *tempCaption = [self.dictionary valueForKey:@"caption"];
+    NSDictionary *tempCaption = [dictionary valueForKey:@"caption"];
     if (tempCaption && (NSNull *)tempCaption != [NSNull null]) {
         NSString * title = [tempCaption valueForKey:@"text"];
         if (title && (NSNull *)title != [NSNull null]) {
@@ -44,6 +44,22 @@
         }
     }
     return caption;
+}
+
+- (NSURL *)parseImageURL:(NSDictionary *)dictionary
+{
+    NSString *urlString = @"";
+    NSDictionary *images = [dictionary valueForKey:@"images"];
+    if (images && (NSNull *)images != [NSNull null]) {
+        NSDictionary * imageDictionary = [images valueForKey:@"standard_resolution"];
+        if (imageDictionary && (NSNull *)imageDictionary != [NSNull null]) {
+            NSString *tempURLString = [imageDictionary valueForKey:@"url"];
+            if (tempURLString && (NSNull *)tempURLString != [NSNull null]) {
+                urlString = tempURLString;
+            }
+        }
+    }
+    return [NSURL URLWithString:urlString];
 }
 
 @end
