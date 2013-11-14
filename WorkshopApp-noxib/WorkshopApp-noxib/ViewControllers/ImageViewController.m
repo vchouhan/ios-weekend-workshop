@@ -44,19 +44,35 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
+    float barHeight = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
     float padding = 10.0f;
+    
+    // Setup the UIImageView that will hold the instagram image
     
     float side = self.view.bounds.size.width - 2*padding;
     CGRect imageViewFrame = (CGRect){padding, padding, side, side};
     self.imageView = [[UIImageView alloc] initWithFrame:imageViewFrame];
     [self.view addSubview:self.imageView];
     
-    CGRect labelFrame = (CGRect){padding, self.imageView.frame.origin.y + self.imageView.frame.size.height + padding, self.imageView.frame.size.width, 200};
+    // Setup the UILabel that will hold the image caption
+    
+    float y = self.imageView.frame.origin.y + self.imageView.frame.size.height + padding;
+    float width = self.imageView.frame.size.width;
+    float height = self.view.bounds.size.height - barHeight - y - padding;
+    
+    CGRect labelFrame = (CGRect){padding, y, width, height};
     UILabel *captionLabel = [[UILabel alloc] initWithFrame:labelFrame];
-    captionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    captionLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     captionLabel.numberOfLines = 0;
     captionLabel.text = self.mediaObject.caption;
     [captionLabel sizeToFit];
+    
+    if (y + captionLabel.frame.size.height > self.view.bounds.size.height - barHeight) {
+        CGRect tempFrame = captionLabel.frame;
+        tempFrame.size.height = height;
+        captionLabel.frame = tempFrame;
+    }
+    
     captionLabel.backgroundColor = [UIColor orangeColor];
     [self.view addSubview:captionLabel];
     
