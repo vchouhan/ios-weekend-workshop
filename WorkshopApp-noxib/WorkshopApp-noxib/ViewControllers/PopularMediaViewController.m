@@ -47,12 +47,23 @@
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
 
+    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(didTapRefresh:)];
+    self.navigationItem.rightBarButtonItem = refreshButton;
+    
     [self updateContent];
 }
 
 - (void)updateContent
 {
     [self.mediaManager fetchPopularMedia];
+}
+
+#pragma mark - Button Actions
+
+- (void)didTapRefresh:(UIBarButtonItem *)sender
+{
+    sender.enabled = NO;
+    [self updateContent];
 }
 
 #pragma mark - MediaManager Delegate
@@ -62,6 +73,7 @@
     dispatch_sync(dispatch_get_main_queue(), ^{
         self.mediaObjects = media;
         [self.tableView reloadData];
+        self.navigationItem.rightBarButtonItem.enabled = YES;
     });
 }
 
@@ -74,6 +86,7 @@
                                                cancelButtonTitle:@"Okay"
                                                otherButtonTitles:nil];
         [alert show];
+        self.navigationItem.rightBarButtonItem.enabled = YES;
     });
 }
 
