@@ -73,7 +73,6 @@
         captionLabel.frame = tempFrame;
     }
     
-    captionLabel.backgroundColor = [UIColor orangeColor];
     [self.view addSubview:captionLabel];
     
     [self downloadImage];
