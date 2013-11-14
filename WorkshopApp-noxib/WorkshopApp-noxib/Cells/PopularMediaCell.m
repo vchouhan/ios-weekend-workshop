@@ -24,7 +24,7 @@
 {
     _mediaObject = mediaObject;
     
-    self.textLabel.text = mediaObject.objectID;
+    self.textLabel.text = mediaObject.username;
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 

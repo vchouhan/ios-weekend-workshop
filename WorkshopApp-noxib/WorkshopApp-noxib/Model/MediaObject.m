@@ -15,7 +15,7 @@
     self = [super init];
     if (self) {
         
-        self.objectID = [self parseObjectID:dictionary];
+        self.username = [self parseUsername:dictionary];
         self.caption = [self parseCaption:dictionary];
         self.imageURL = [self parseImageURL:dictionary];
     
@@ -23,19 +23,22 @@
     return self;
 }
 
-- (NSString *)parseObjectID:(NSDictionary *)dictionary
+- (NSString *)parseUsername:(NSDictionary *)dictionary
 {
-    NSString *objectID = @"No ID";
-    NSString *tempObjectID = [dictionary valueForKey:@"id"];
-    if (tempObjectID && (NSNull *)objectID != [NSNull null]) {
-        objectID = tempObjectID;
+    NSString * username = @"-";
+    NSDictionary *userDict = [dictionary valueForKey:@"user"];
+    if (userDict && (NSNull *)userDict != [NSNull null]) {
+        NSString * tempUsername = [userDict valueForKey:@"username"];
+        if (tempUsername && (NSNull *)tempUsername != [NSNull null]) {
+            username = tempUsername;
+        }
     }
-    return objectID;
+    return username;
 }
 
 - (NSString *)parseCaption:(NSDictionary *)dictionary
 {
-    NSString * caption = @"No caption";
+    NSString * caption = @"-";
     NSDictionary *tempCaption = [dictionary valueForKey:@"caption"];
     if (tempCaption && (NSNull *)tempCaption != [NSNull null]) {
         NSString * title = [tempCaption valueForKey:@"text"];

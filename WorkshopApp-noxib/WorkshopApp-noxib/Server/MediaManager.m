@@ -67,8 +67,12 @@
             [mediaObjects addObject:mediaObject];
         }
     }
+    
+    NSSortDescriptor * descriptor = [[NSSortDescriptor alloc] initWithKey:@"username" ascending:YES];
+    NSArray * descriptors = @[descriptor];
+    NSArray * sortedArray = [mediaObjects sortedArrayUsingDescriptors:descriptors];
 
-    return mediaObjects;
+    return sortedArray;
 }
 
 @end

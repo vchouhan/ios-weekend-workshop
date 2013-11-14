@@ -34,6 +34,7 @@
     [super viewDidLoad];
     
 	// Do any additional setup after loading the view.
+    self.title = @"Media";
     
     self.mediaObjects = [NSArray array];
 
@@ -44,21 +45,9 @@
     self.tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
     [self.view addSubview:self.tableView];
-}
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
     [self updateContent];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)updateContent
