@@ -50,11 +50,14 @@
 
     __weak ImageViewController * weakSelf = self;
     [mediaManager downloadImage:self.mediaObject.imageURL withCompletionBlock:^(NSURL *location, NSError *error) {
+        
         NSLog(@"location: %@", location);
+        
         UIImage *downloadedImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];
         dispatch_async(dispatch_get_main_queue(), ^{
             weakSelf.imageView.image = downloadedImage;
         });
+        
     }];
 }
 
