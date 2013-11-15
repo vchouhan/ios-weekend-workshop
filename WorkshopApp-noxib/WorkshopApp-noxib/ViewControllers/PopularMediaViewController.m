@@ -13,18 +13,18 @@
 #import "MediaObject.h"
 
 @interface PopularMediaViewController () <UITableViewDataSource, UITableViewDelegate, MediaManagerDelegate>
-@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) MediaManager *mediaManager;
 @property (nonatomic, strong) NSArray *mediaObjects;
 @end
 
 @implementation PopularMediaViewController
 
-- (id)init
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super init];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        // Custom initialization
     }
     return self;
 }
@@ -41,12 +41,6 @@
 
     self.mediaManager = [[MediaManager alloc] init];
     self.mediaManager.delegate = self;
-
-    CGRect frame = (CGRect){0, 0, self.view.bounds.size.width, self.view.bounds.size.height};
-    self.tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    [self.view addSubview:self.tableView];
 
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(didTapRefresh:)];
     self.navigationItem.rightBarButtonItem = refreshButton;
@@ -96,7 +90,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MediaObject *mediaObject = [self.mediaObjects objectAtIndex:indexPath.row];
-    ImageViewController *vc = [[ImageViewController alloc] initWithMediaObject:mediaObject];
+    ImageViewController *vc = [[ImageViewController alloc] initWithNibName:@"ImageViewController" bundle:Nil mediaObject:mediaObject];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

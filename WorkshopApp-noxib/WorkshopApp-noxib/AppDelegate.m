@@ -17,7 +17,7 @@
     
     // Override point for customization after application launch.
     
-    PopularMediaViewController *vc = [[PopularMediaViewController alloc] init];
+    PopularMediaViewController *vc = [[PopularMediaViewController alloc] initWithNibName:@"PopularMediaViewController" bundle:nil];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self.window setRootViewController:nc];
     

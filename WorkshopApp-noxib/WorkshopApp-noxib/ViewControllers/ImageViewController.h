@@ -12,6 +12,6 @@
 
 @interface ImageViewController : UIViewController
 
-- (id)initWithMediaObject:(MediaObject *)mediaObject;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil mediaObject:(MediaObject *)mediaObject;
 
 @end

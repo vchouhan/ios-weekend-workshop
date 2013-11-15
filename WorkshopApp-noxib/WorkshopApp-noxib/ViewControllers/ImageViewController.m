@@ -11,7 +11,8 @@
 
 @interface ImageViewController ()
 @property (nonatomic, strong) MediaObject *mediaObject;
-@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) IBOutlet UIImageView *imageView;
+@property (nonatomic, strong) IBOutlet UILabel *captionLabel;
 @end
 
 @implementation ImageViewController
@@ -19,9 +20,9 @@
 // Because an ImageViewController cannot exist without a mediaObject,
 // Define a custom init method that accepts a MediaObject
 
-- (id)initWithMediaObject:(MediaObject *)mediaObject
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil mediaObject:(MediaObject *)mediaObject
 {
-    self = [super init];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.mediaObject = mediaObject;
     }
@@ -35,39 +36,10 @@
 	// Do any additional setup after loading the view.
     self.title = self.mediaObject.username;
     
-    self.view.backgroundColor = [UIColor whiteColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    float barHeight = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
-    float padding = 10.0f;
-    
-    // Setup the UIImageView that will hold the instagram image
-    
-    float side = self.view.bounds.size.width - 2*padding;
-    CGRect imageViewFrame = (CGRect){padding, padding, side, side};
-    self.imageView = [[UIImageView alloc] initWithFrame:imageViewFrame];
-    [self.view addSubview:self.imageView];
-    
-    // Setup the UILabel that will hold the image caption
-    
-    float y = self.imageView.frame.origin.y + self.imageView.frame.size.height + padding;
-    float width = self.imageView.frame.size.width;
-    float height = self.view.bounds.size.height - barHeight - y - padding;
-    
-    CGRect labelFrame = (CGRect){padding, y, width, height};
-    UILabel *captionLabel = [[UILabel alloc] initWithFrame:labelFrame];
-    captionLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    captionLabel.numberOfLines = 0;
-    captionLabel.text = self.mediaObject.caption;
-    [captionLabel sizeToFit];
-    
-    if (y + captionLabel.frame.size.height > self.view.bounds.size.height - barHeight) {
-        CGRect tempFrame = captionLabel.frame;
-        tempFrame.size.height = height;
-        captionLabel.frame = tempFrame;
-    }
-    
-    [self.view addSubview:captionLabel];
+    self.captionLabel.text = self.mediaObject.caption;
+    [self.captionLabel sizeToFit];
     
     [self downloadImage];
 }

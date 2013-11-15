@@ -25,6 +25,8 @@
 		9145170B1831CB3900E13634 /* MediaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9145170A1831CB3900E13634 /* MediaManager.m */; };
 		9145170F18326E3C00E13634 /* NSError+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9145170E18326E3C00E13634 /* NSError+Extensions.m */; };
 		914517131833B7DF00E13634 /* MediaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 914517121833B7DF00E13634 /* MediaObject.m */; };
+		914517151835CA1000E13634 /* PopularMediaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 914517141835CA1000E13634 /* PopularMediaViewController.xib */; };
+		9145171C1835CB8600E13634 /* ImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9145171B1835CB8600E13634 /* ImageViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,8 @@
 		9145170E18326E3C00E13634 /* NSError+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+Extensions.m"; sourceTree = "<group>"; };
 		914517111833B7DF00E13634 /* MediaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaObject.h; sourceTree = "<group>"; };
 		914517121833B7DF00E13634 /* MediaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaObject.m; sourceTree = "<group>"; };
+		914517141835CA1000E13634 /* PopularMediaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopularMediaViewController.xib; sourceTree = "<group>"; };
+		9145171B1835CB8600E13634 /* ImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,8 +194,10 @@
 			children = (
 				914517041831C9F300E13634 /* PopularMediaViewController.h */,
 				914517051831C9F300E13634 /* PopularMediaViewController.m */,
+				914517141835CA1000E13634 /* PopularMediaViewController.xib */,
 				914517021831C9F300E13634 /* ImageViewController.h */,
 				914517031831C9F300E13634 /* ImageViewController.m */,
+				9145171B1835CB8600E13634 /* ImageViewController.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -289,6 +295,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9145171C1835CB8600E13634 /* ImageViewController.xib in Resources */,
+				914517151835CA1000E13634 /* PopularMediaViewController.xib in Resources */,
 				914516D01831BC9F00E13634 /* InfoPlist.strings in Resources */,
 				914516D81831BC9F00E13634 /* Images.xcassets in Resources */,
 			);
