@@ -8,6 +8,7 @@
 
 #import "ImageViewController.h"
 #import "MediaObject.h"
+#import "MediaManager.h"
 
 @interface ImageViewController ()
 @property (nonatomic, strong) MediaObject *mediaObject;
@@ -34,39 +35,33 @@
     [super viewDidLoad];
     
 	// Do any additional setup after loading the view.
+    
     self.title = self.mediaObject.username;
     
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.edgesForExtendedLayout = UIRectEdgeNone; // Ensure that our UI elements begin just after the navigationBar rather than beneath it
     
     self.captionLabel.text = self.mediaObject.caption;
     [self.captionLabel sizeToFit];
     
-    [self downloadImage];
+    // Init an instance of the MediaManager class,
+    // And use it to download and set the image property of our UIImageView
+    
+    MediaManager *mediaManager = [[MediaManager alloc] init];
+
+    __weak ImageViewController * weakSelf = self;
+    [mediaManager downloadImage:self.mediaObject.imageURL withCompletionBlock:^(NSURL *location, NSError *error) {
+        NSLog(@"location: %@", location);
+        UIImage *downloadedImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weakSelf.imageView.image = downloadedImage;
+        });
+    }];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark -
-
-- (void)downloadImage
-{
-    // Use an NSURLSessionDownloadTask to asynchronously fetch the image
-    // And set the UIImageView's image to the newly downloaded image
-    
-    __weak ImageViewController * weakSelf = self;
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDownloadTask *getImageTask = [session downloadTaskWithURL:self.mediaObject.imageURL completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-        
-        UIImage *downloadedImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            weakSelf.imageView.image = downloadedImage;
-        });
-    }];
-    [getImageTask resume];
 }
 
 @end
