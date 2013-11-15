@@ -15,6 +15,10 @@
     self = [super init];
     if (self) {
         
+        // Extract the data we require,
+        // Checking for presence and validity of the data along the way,
+        // Falling back on default values if something's amiss
+        
         self.username = [self parseUsername:dictionary];
         self.caption = [self parseCaption:dictionary];
         self.imageURL = [self parseImageURL:dictionary];

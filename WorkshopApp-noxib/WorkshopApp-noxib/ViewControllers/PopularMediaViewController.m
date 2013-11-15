@@ -20,11 +20,11 @@
 
 @implementation PopularMediaViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
-
+        
     }
     return self;
 }
@@ -34,6 +34,7 @@
     [super viewDidLoad];
     
 	// Do any additional setup after loading the view.
+    
     self.title = @"Media";
     
     self.mediaObjects = [NSArray array];

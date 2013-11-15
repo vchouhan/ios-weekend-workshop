@@ -10,6 +10,9 @@
 
 @implementation NSError (Extensions)
 
+// Create a custom error based on the error JSON returned from the Instagram "popular media" endpoint
+// http://instagram.com/developer/endpoints/media/#get_media_popular
+
 + (NSError *)errorFromResponse:(NSDictionary *)response
 {
     int code = 404;

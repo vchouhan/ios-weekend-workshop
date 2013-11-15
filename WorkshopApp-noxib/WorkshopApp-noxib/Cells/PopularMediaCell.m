@@ -24,6 +24,9 @@
 {
     _mediaObject = mediaObject;
     
+    // Each time we set a cell's mediaObject property
+    // Configure its textLabel to display the username
+    
     self.textLabel.text = mediaObject.username;
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }

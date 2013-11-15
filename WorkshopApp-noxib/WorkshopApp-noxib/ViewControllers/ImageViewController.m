@@ -16,20 +16,14 @@
 
 @implementation ImageViewController
 
+// Because an ImageViewController cannot exist without a mediaObject,
+// Define a custom init method that accepts a MediaObject
+
 - (id)initWithMediaObject:(MediaObject *)mediaObject
 {
     self = [super init];
     if (self) {
         self.mediaObject = mediaObject;
-    }
-    return self;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -88,6 +82,9 @@
 
 - (void)downloadImage
 {
+    // Use an NSURLSessionDownloadTask to asynchronously fetch the image
+    // And set the UIImageView's image to the newly downloaded image
+    
     __weak ImageViewController * weakSelf = self;
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDownloadTask *getImageTask = [session downloadTaskWithURL:self.mediaObject.imageURL completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {

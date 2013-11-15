@@ -13,6 +13,8 @@
 #define POPULAR_MEDIA_ENDPOINT @"https://api.instagram.com/v1/media/popular?client_id="
 #define INSTAGRAM_CLIENT_ID @"5609d2fb2bf74d749716bd00a9090e5e"
 
+// http://instagram.com/developer/endpoints/media/#get_media_popular
+
 @implementation MediaManager
 
 - (void)dealloc
@@ -27,10 +29,15 @@
     NSURL *URL = [NSURL URLWithString:endpoint];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
     
+    // Use an NSURLSessionDataTask to asynchronously fetch JSON from Instagram's "popular media" endpoint
+    
     __weak MediaManager * weakSelf = self;
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                                
+        
+        // Check for errors related to the request and response
+        // Call the requisite delegate methods
+        
         if (error) {
             [weakSelf.delegate mediaManager:weakSelf didFailWithError:error];
         } else {
@@ -60,6 +67,8 @@
 {
     NSMutableArray * mediaObjects = [NSMutableArray array];
     
+    // Convert dictionaries into instances of the MediaObject class
+    
     NSArray *data = [response valueForKey:@"data"];
     if (data && (NSNull *)data != [NSNull null]) {
         for (NSDictionary *mediaDictionary in data) {
@@ -67,6 +76,8 @@
             [mediaObjects addObject:mediaObject];
         }
     }
+    
+    // Sort mediaObjects alphabetically by username
     
     NSSortDescriptor * descriptor = [[NSSortDescriptor alloc] initWithKey:@"username" ascending:YES];
     NSArray * descriptors = @[descriptor];
