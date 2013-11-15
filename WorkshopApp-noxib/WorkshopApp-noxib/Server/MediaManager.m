@@ -13,16 +13,12 @@
 #define POPULAR_MEDIA_ENDPOINT @"https://api.instagram.com/v1/media/popular?client_id="
 #define INSTAGRAM_CLIENT_ID @"5609d2fb2bf74d749716bd00a9090e5e"
 
+// The Instagram "popular media" endpoint we're hitting is documented here:
 // http://instagram.com/developer/endpoints/media/#get_media_popular
 
 @implementation MediaManager
 
-- (void)dealloc
-{
-    self.delegate = nil;
-}
-
-- (void)fetchPopularMedia
+- (void)fetchPopularMediaWithCompletionBlock:(void (^)(NSArray *media, NSError *error))completionBlock
 {
     NSString * endpoint = [NSString stringWithFormat:@"%@%@", POPULAR_MEDIA_ENDPOINT, INSTAGRAM_CLIENT_ID];
     
@@ -39,22 +35,22 @@
         // Call the requisite delegate methods
         
         if (error) {
-            [weakSelf.delegate mediaManager:weakSelf didFailWithError:error];
+            completionBlock(nil, error);
         } else {
             
             NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data
                                                                        options:NSJSONReadingAllowFragments
                                                                          error:&error];
             if (error){
-                [weakSelf.delegate mediaManager:weakSelf didFailWithError:error];
+                completionBlock(nil, error);
             } else {
                 NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
                 if (httpResponse.statusCode == 200) {
                     NSArray *media = [weakSelf mediaFromResponse:dictionary];
-                    [weakSelf.delegate mediaManager:weakSelf didSucceedWithMedia:media];
+                    completionBlock(media, nil);
                 } else {
                     error = [NSError errorFromResponse:dictionary];
-                    [weakSelf.delegate mediaManager:weakSelf didFailWithError:error];
+                    completionBlock(nil, error);
                 }
             }
         }
@@ -85,5 +81,53 @@
 
     return sortedArray;
 }
+
+#pragma mark - Delegate Approach
+
+//- (void)dealloc
+//{
+//    self.delegate = nil;
+//}
+
+//- (void)fetchPopularMedia
+//{
+//    NSString * endpoint = [NSString stringWithFormat:@"%@%@", POPULAR_MEDIA_ENDPOINT, INSTAGRAM_CLIENT_ID];
+//
+//    NSURL *URL = [NSURL URLWithString:endpoint];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+//
+//    // Use an NSURLSessionDataTask to asynchronously fetch JSON from Instagram's "popular media" endpoint
+//
+//    __weak MediaManager * weakSelf = self;
+//    NSURLSession *session = [NSURLSession sharedSession];
+//    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//
+//        // Check for errors related to the request and response
+//        // Call the requisite delegate methods
+//
+//        if (error) {
+//            [weakSelf.delegate mediaManager:weakSelf didFailWithError:error];
+//        } else {
+//
+//            NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data
+//                                                                       options:NSJSONReadingAllowFragments
+//                                                                         error:&error];
+//            if (error){
+//                [weakSelf.delegate mediaManager:weakSelf didFailWithError:error];
+//            } else {
+//                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+//                if (httpResponse.statusCode == 200) {
+//                    NSArray *media = [weakSelf mediaFromResponse:dictionary];
+//                    [weakSelf.delegate mediaManager:weakSelf didSucceedWithMedia:media];
+//                } else {
+//                    error = [NSError errorFromResponse:dictionary];
+//                    [weakSelf.delegate mediaManager:weakSelf didFailWithError:error];
+//                }
+//            }
+//        }
+//
+//    }];
+//    [task resume];
+//}
 
 @end

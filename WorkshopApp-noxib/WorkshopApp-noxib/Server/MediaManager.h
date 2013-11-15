@@ -8,18 +8,24 @@
 
 #import <Foundation/Foundation.h>
 
-@class MediaManager;
-
-@protocol MediaManagerDelegate <NSObject>
-@required
-- (void)mediaManager:(MediaManager *)mediaManager didSucceedWithMedia:(NSArray *)media;
-- (void)mediaManager:(MediaManager *)mediaManager didFailWithError:(NSError *)error;
-@end
-
 @interface MediaManager : NSObject
 
-@property (nonatomic, weak) id<MediaManagerDelegate> delegate;
-
-- (void)fetchPopularMedia;
+- (void)fetchPopularMediaWithCompletionBlock:(void (^)(NSArray *media, NSError *error))completionBlock;
 
 @end
+
+//@class MediaManager;
+
+//@protocol MediaManagerDelegate <NSObject>
+//@required
+//- (void)mediaManager:(MediaManager *)mediaManager didSucceedWithMedia:(NSArray *)media;
+//- (void)mediaManager:(MediaManager *)mediaManager didFailWithError:(NSError *)error;
+//@end
+
+//@interface MediaManager : NSObject
+
+//@property (nonatomic, weak) id<MediaManagerDelegate> delegate;
+
+//- (void)fetchPopularMedia;
+
+//@end

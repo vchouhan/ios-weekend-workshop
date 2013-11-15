@@ -12,7 +12,7 @@
 #import "MediaManager.h"
 #import "MediaObject.h"
 
-@interface PopularMediaViewController () <UITableViewDataSource, UITableViewDelegate, MediaManagerDelegate>
+@interface PopularMediaViewController () <UITableViewDataSource, UITableViewDelegate> //, MediaManagerDelegate> // Delegate approach
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) MediaManager *mediaManager;
 @property (nonatomic, strong) NSArray *mediaObjects;
@@ -40,7 +40,7 @@
     self.mediaObjects = [NSArray array];
 
     self.mediaManager = [[MediaManager alloc] init];
-    self.mediaManager.delegate = self;
+//    self.mediaManager.delegate = self;
 
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(didTapRefresh:)];
     self.navigationItem.rightBarButtonItem = refreshButton;
@@ -50,7 +50,28 @@
 
 - (void)updateContent
 {
-    [self.mediaManager fetchPopularMedia];
+//    [self.mediaManager fetchPopularMedia]; // Delegate approach
+    
+    [self.mediaManager fetchPopularMediaWithCompletionBlock:^(NSArray *media, NSError *error) {
+
+        dispatch_sync(dispatch_get_main_queue(), ^{
+
+            if (media) {
+                self.mediaObjects = media;
+                [self.tableView reloadData];
+                self.navigationItem.rightBarButtonItem.enabled = YES;
+            } else if (error) {
+                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"An Error Occurred"
+                                                                 message:error.localizedDescription
+                                                                delegate:nil
+                                                       cancelButtonTitle:@"Okay"
+                                                       otherButtonTitles:nil];
+                [alert show];
+                self.navigationItem.rightBarButtonItem.enabled = YES;
+            }
+        });
+
+    }];
 }
 
 #pragma mark - Button Actions
@@ -59,30 +80,6 @@
 {
     sender.enabled = NO;
     [self updateContent];
-}
-
-#pragma mark - MediaManager Delegate
-
-- (void)mediaManager:(MediaManager *)mediaManager didSucceedWithMedia:(NSArray *)media
-{
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        self.mediaObjects = media;
-        [self.tableView reloadData];
-        self.navigationItem.rightBarButtonItem.enabled = YES;
-    });
-}
-
-- (void)mediaManager:(MediaManager *)mediaManager didFailWithError:(NSError *)error
-{
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"An Error Occurred"
-                                                         message:error.localizedDescription
-                                                        delegate:nil
-                                               cancelButtonTitle:@"Okay"
-                                               otherButtonTitles:nil];
-        [alert show];
-        self.navigationItem.rightBarButtonItem.enabled = YES;
-    });
 }
 
 #pragma mark - UITableView Delegate
@@ -119,5 +116,29 @@
         return 0;
     }
 }
+
+//#pragma mark - MediaManager Delegate
+//
+//- (void)mediaManager:(MediaManager *)mediaManager didSucceedWithMedia:(NSArray *)media
+//{
+//    dispatch_sync(dispatch_get_main_queue(), ^{
+//        self.mediaObjects = media;
+//        [self.tableView reloadData];
+//        self.navigationItem.rightBarButtonItem.enabled = YES;
+//    });
+//}
+//
+//- (void)mediaManager:(MediaManager *)mediaManager didFailWithError:(NSError *)error
+//{
+//    dispatch_sync(dispatch_get_main_queue(), ^{
+//        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"An Error Occurred"
+//                                                         message:error.localizedDescription
+//                                                        delegate:nil
+//                                               cancelButtonTitle:@"Okay"
+//                                               otherButtonTitles:nil];
+//        [alert show];
+//        self.navigationItem.rightBarButtonItem.enabled = YES;
+//    });
+//}
 
 @end
