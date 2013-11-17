@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 
 #import "AppDelegate.h"
+#import "Tree.h"
 
 int main(int argc, char * argv[])
 {
     @autoreleasepool {
  
-        
-        // Example #1
+        // Example 1
         
         NSString *name = @"Alfie";
         int age = 34;
@@ -24,7 +24,7 @@ int main(int argc, char * argv[])
         NSLog(@"My name is %@. I am %i years old. I am %.2f feet tall.", name, age, height);
         
         
-        // Example #2
+        // Example 2
         
         BOOL hasPrettyLongName = NO;
         
@@ -37,7 +37,7 @@ int main(int argc, char * argv[])
         NSLog(@"Is my name pretty long? %i (%i characters)", hasPrettyLongName, [name length]);
 
         
-        // Example #3
+        // Example 3
         
         NSArray *numbers = @[@10, @20, @25, @100];
         
@@ -53,7 +53,7 @@ int main(int argc, char * argv[])
         NSLog(@"average = %.2f", average);
         
         
-        // Example #4
+        // Example 4
         
         NSDictionary *myInfo = @{@"name":@"Alfie",
                                @"age":@34,
@@ -68,6 +68,19 @@ int main(int argc, char * argv[])
             
             NSLog(@"%@ : %@", key, value);
         }
+        
+        
+        // Exmaple 5
+        
+        Tree *pineTree = [[Tree alloc] initWithSpecies:@"Pine" age:3];
+        Tree *dogwoodTree = [[Tree alloc] initWithSpecies:@"Dogwood" age:35];
+        Tree *japaneseMapleTree = [[Tree alloc] initWithSpecies:@"Japanese Maple" age:41];
+        
+        [pineTree printInfo];
+        [dogwoodTree printInfo];
+        [japaneseMapleTree printInfo];
+        
+        NSLog(@"Species: %@, Age: %i", dogwoodTree.species, dogwoodTree.age);
         
 //        UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }

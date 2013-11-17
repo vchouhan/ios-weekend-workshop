@@ -19,6 +19,7 @@
 		91EAD2AF1839263F00139B9E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91EAD2971839263E00139B9E /* UIKit.framework */; };
 		91EAD2B71839263F00139B9E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 91EAD2B51839263F00139B9E /* InfoPlist.strings */; };
 		91EAD2B91839263F00139B9E /* ObjcBasicsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EAD2B81839263F00139B9E /* ObjcBasicsTests.m */; };
+		91EAD314183955DA00139B9E /* Tree.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EAD313183955DA00139B9E /* Tree.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,8 @@
 		91EAD2B41839263F00139B9E /* ObjcBasicsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ObjcBasicsTests-Info.plist"; sourceTree = "<group>"; };
 		91EAD2B61839263F00139B9E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		91EAD2B81839263F00139B9E /* ObjcBasicsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjcBasicsTests.m; sourceTree = "<group>"; };
+		91EAD312183955DA00139B9E /* Tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tree.h; sourceTree = "<group>"; };
+		91EAD313183955DA00139B9E /* Tree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tree.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +112,8 @@
 			children = (
 				91EAD2A21839263E00139B9E /* AppDelegate.h */,
 				91EAD2A31839263E00139B9E /* AppDelegate.m */,
+				91EAD312183955DA00139B9E /* Tree.h */,
+				91EAD313183955DA00139B9E /* Tree.m */,
 				91EAD2A51839263E00139B9E /* Images.xcassets */,
 				91EAD29A1839263E00139B9E /* Supporting Files */,
 			);
@@ -239,6 +244,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91EAD314183955DA00139B9E /* Tree.m in Sources */,
 				91EAD2A41839263E00139B9E /* AppDelegate.m in Sources */,
 				91EAD2A01839263E00139B9E /* main.m in Sources */,
 			);
@@ -441,6 +447,7 @@
 				91EAD2BE1839263F00139B9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		91EAD2BF1839263F00139B9E /* Build configuration list for PBXNativeTarget "ObjcBasicsTests" */ = {
 			isa = XCConfigurationList;
@@ -449,6 +456,7 @@
 				91EAD2C11839263F00139B9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
