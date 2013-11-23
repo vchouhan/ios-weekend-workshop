@@ -525,6 +525,7 @@
 				918FC31D1836C285009C0FA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		918FC31E1836C285009C0FA4 /* Build configuration list for PBXNativeTarget "WorkshopAppTests" */ = {
 			isa = XCConfigurationList;
@@ -533,6 +534,7 @@
 				918FC3201836C285009C0FA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

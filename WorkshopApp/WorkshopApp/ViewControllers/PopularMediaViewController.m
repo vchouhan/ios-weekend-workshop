@@ -96,7 +96,7 @@
     
     PopularMediaCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[PopularMediaCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+        cell = [[PopularMediaCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
     MediaObject *mediaObject = [self.mediaObjects objectAtIndex:indexPath.row];
